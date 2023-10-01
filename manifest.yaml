@@ -1,0 +1,43 @@
+version: "1"
+name: "Contacts blocks only"
+description: "Snap-In to Timeline"
+
+service_account:
+  display_name: Con Bot
+
+event-sources:
+  - name: devrev-webhook
+    description: Event coming from DevRev
+    display_name: Devrev
+    type: devrev-webhook
+    config:
+      event_types:
+        - work_updated
+
+functions:
+  - name: coontact
+    description: Create send msg or call block
+  - name: Coll_or_msg
+    description: Send msg or call
+
+commands:
+  - name: coontact
+    namespace: devrev
+    description: Contact for help
+    surfaces:
+      - surface: discussions
+        object_types:
+          - issue
+          - ticket
+          - conversation
+          - part
+          - rev_user
+          - rev_org
+    usage_hint: "Enter a 10 digit mobile number"
+    function: coontact
+
+snap_kit_actions:
+  - name: coontact
+    description: hello
+    function: Coll_or_msg
+    
